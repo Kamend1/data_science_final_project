@@ -236,3 +236,18 @@ def custom_date_parsing_method_regex(input_obj):
 
     except:
         return pd.NaT
+
+
+def get_sector_industry(ticker_symbol):
+    """
+    Obtain industry and sector information per stock ticker from yfinance
+    """
+    
+    ticker = yf.Ticker(ticker_symbol)
+    info = ticker.info
+    
+    return {
+        "ticker": ticker_symbol,
+        "sector": info.get("sector"),
+        "industry": info.get("industry")
+    }
