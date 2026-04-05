@@ -4,3 +4,6 @@ data/*.csv
 venv/
 .env
 .virtual_documents/
+temp_chunks/*.csv
+static_data/*
+!static_data/.gitkeep

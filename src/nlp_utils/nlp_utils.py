@@ -1,8 +1,10 @@
 from transformers import logging as hf_logging
 import numpy as np
+import re
+import html
 
 
-def classify_long_transcript(text, tokenizer, nlp):
+def classify_long_transcript_batched(text, tokenizer, nlp, batch_size=16):
     """
     This method receives a text, a tokenizer, and an nlp model.
     It splits the text in chunks to accommodate the tokenizer limit.
@@ -20,13 +22,11 @@ def classify_long_transcript(text, tokenizer, nlp):
         verbose=False
     )
 
-    chunks = [tokens[i:i + max_chunk_size] for i in range(0, len(tokens), max_chunk_size)]
+    token_chunks = [tokens[i:i + max_chunk_size] for i in range(0, len(tokens), max_chunk_size)]
 
-    results = []
-    for chunk in chunks:
-        chunk_text = tokenizer.decode(chunk)
-        res = nlp(chunk_text, truncation=True, max_length=512)
-        results.append(res[0])
+    string_chunks = [tokenizer.decode(chunk) for chunk in token_chunks]
+
+    results = nlp(string_chunks, batch_size=batch_size, truncation=True)
 
     return results
 
@@ -49,3 +49,21 @@ def aggregate_sentiment(results):
             scores.append(0)
 
     return np.mean(scores)
+
+
+def clean_for_finbert(text):
+    """
+    Decodes HTML, removes tables, and normalizes whitespace.
+    """
+    if not text:
+        return ""
+
+    text = html.unescape(text)
+
+    text = re.sub(r'(\d+[\d,.]*\s+){3,}', ' ', text)
+
+    text = re.sub(r'\s+', ' ', text)
+    
+    text = re.sub(r'Item\s\d\.\d\d', '', text, flags=re.IGNORECASE)
+
+    return text.strip()
