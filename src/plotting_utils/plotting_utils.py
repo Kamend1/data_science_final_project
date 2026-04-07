@@ -99,6 +99,26 @@ def create_candlestick_graph(ticker):
     return fig
 
 
+def create_generic_histogram(data, bins, title, xlabel, mean=None, st_dev=None):
+
+    fig = plt.figure(figsize=(10, 6))
+    plt.hist(data, bins=bins, color='skyblue', edgecolor='black', alpha=0.7)
+    plt.axvline(mean, label='Mean', color='r')
+
+    if mean is not None and st_dev is not None:
+        plt.axvline(mean - st_dev, label='+/- 1 St Dev', color='y', linestyle='dashed')
+        plt.axvline(mean + st_dev, label='+/- 1 St Dev', color='y', linestyle='dashed')
+        plt.axvline(mean - 2*st_dev, label='+/- 2 St Dev', color='orange', linestyle='dashed')
+        plt.axvline(mean + 2*st_dev, label='+/- 2 St Dev', color='orange', linestyle='dashed')
+
+    plt.title(title, fontsize=14)
+    plt.xlabel(xlabel, fontsize=12)
+    plt.ylabel("Frequency", fontsize=12)
+    plt.grid(axis='y', alpha=0.3)
+    plt.legend()
+    return fig
+
+    
 def create_histogram_distribution_daily_log_returns(return_data, ticker, mean=None, st_dev=None):
     """
     Generates a frequency distribution of daily log returns with statistical overlays.
