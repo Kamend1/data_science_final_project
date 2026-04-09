@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 
 
-def save_10_year_single_stock_data_to_csv(ticker: str, per: str = "10y") -> pd.DataFrame:
+def save_10_year_single_stock_data_to_csv(ticker: str, project_root, per: str = "10y") -> pd.DataFrame:
     """
     Download historical data from yfinance for a ticker and a period. Period defaults to 10y
     if not provided. Save the information in a data folder in the main project folder. If data
@@ -20,7 +20,7 @@ def save_10_year_single_stock_data_to_csv(ticker: str, per: str = "10y") -> pd.D
     if isinstance(data.columns, pd.MultiIndex):
         data.columns = data.columns.get_level_values(0)
 
-    data_dir = Path("data")
+    data_dir = Path(project_root / "data")
     data_dir.mkdir(exist_ok=True)
 
     filename = data_dir / f"{ticker}_{per}_auto_adjusted.csv"
@@ -32,6 +32,7 @@ def save_10_year_single_stock_data_to_csv(ticker: str, per: str = "10y") -> pd.D
 def create_returns_and_save(
     df: pd.DataFrame,
     ticker: str,
+    project_root,
     period: str = "10y",
     data_folder: str = "data") -> pd.DataFrame:
     """
@@ -87,7 +88,7 @@ def create_returns_and_save(
 
     new_df = new_df.dropna()
 
-    data_path = Path(data_folder)
+    data_path = Path(project_root / data_folder)
     data_path.mkdir(exist_ok=True)
 
     filename = data_path / f"{ticker}_{period}_with_returns.csv"
@@ -116,42 +117,54 @@ def percentage_return_classifier(percentage_return):
         return 'Bear Sell Off'
 
 
-def fetch_raw_data(ticker, period="10y", data_folder="data"):
+def fetch_raw_data(ticker, project_root, period="10y", data_folder="data"):
     """
     This method reads CSV files, which have been previously saved to
     data folder
     """
     
-    file_path = Path(data_folder) / f"{ticker}_{period}_auto_adjusted.csv"
+    file_path = Path(project_root / data_folder) / f"{ticker}_{period}_auto_adjusted.csv"
     data = pd.read_csv(file_path, index_col=0, parse_dates=True)
 
     return data
 
 
-def build_close_price_df(tickers, period="10y", data_folder="data"):
+def build_close_price_df(tickers, project_root, period="10y", data_folder="data"):
     """
     Extract close prices by ticker in a new DataFrame object
     """
     close_price_df = pd.DataFrame()
 
     for ticker in tickers:
-        df = fetch_raw_data(ticker)
+        df = fetch_raw_data(ticker, project_root)
         close_price_df[ticker] = df["Close"]
 
     return close_price_df
 
+def build_open_price_df(tickers, project_root, period="10y", data_folder="data"):
+    """
+    Extract open prices by ticker in a new DataFrame object
+    """
+    open_price_df = pd.DataFrame()
 
-def fetch_returns_data(ticker, period="10y", data_folder="data"):
+    for ticker in tickers:
+        df = fetch_raw_data(ticker, project_root)
+        open_price_df[ticker] = df["Open"]
+
+    return open_price_df
+
+
+def fetch_returns_data(ticker, project_root, period="10y", data_folder="data"):
     """
     Extract return calculations by ticker in a new DataFrame object
     """
-    file_path = Path(data_folder) / f"{ticker}_{period}_with_returns.csv"
+    file_path = Path(project_root / data_folder) / f"{ticker}_{period}_with_returns.csv"
     data = pd.read_csv(file_path, index_col=0, parse_dates=True)
 
     return data
 
 
-def build_returns_df(tickers, period="10y", data_folder="data"):
+def build_returns_df(tickers, project_root, period="10y", data_folder="data"):
     """
     Create CSV file with return calculations by ticker and save in data folder
     """
@@ -159,7 +172,7 @@ def build_returns_df(tickers, period="10y", data_folder="data"):
     returns_df = pd.DataFrame()
 
     for ticker in tickers:
-        return_data = fetch_returns_data(ticker)
+        return_data = fetch_returns_data(ticker, project_root)
 
         returns_df[ticker] = return_data["log_return"].dropna()
 
