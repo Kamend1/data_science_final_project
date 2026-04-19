@@ -54,7 +54,7 @@ def plot_taylor_expansion(x_range,
     return fig
 
 
-def create_candlestick_graph(ticker):
+def create_candlestick_graph(ticker, project_root):
     """
     Constructs a daily OHLC candlestick visualization for a given financial ticker.
 
@@ -74,7 +74,7 @@ def create_candlestick_graph(ticker):
         the function's scope.
     """
 
-    data = data_pipe.fetch_raw_data(ticker)
+    data = data_pipe.fetch_raw_data(ticker, project_root)
 
     fig = go.Figure(
         data=[
