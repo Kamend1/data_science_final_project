@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import seaborn as sns
@@ -423,3 +424,17 @@ def create_q_q_plot(return_data, title):
     fig = sm.qqplot(return_data['log_return'].dropna(), line='s')
     plt.title(title)
     return fig
+
+
+def plot_indicator_deciles(df, indicator, target, ax, n_bins=10):
+    temp = df[[indicator, target]].dropna().copy()
+    temp = temp[temp[indicator] != 0]  # remove warm-up zeros where relevant
+
+    temp['bin'] = pd.qcut(temp[indicator], q=n_bins, duplicates='drop')
+    grouped = temp.groupby('bin', observed=False)[target].mean()
+
+    ax.plot(range(1, len(grouped) + 1), grouped.values, marker='o')
+    ax.axhline(0, linestyle='--', linewidth=1)
+    ax.set_title(f'{indicator} deciles vs {target}')
+    ax.set_xlabel('Indicator decile')
+    ax.set_ylabel('Mean forward return')
