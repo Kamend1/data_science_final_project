@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import statsmodels.api as sm
 import seaborn as sns
 import plotly.express as px
 import plotly.graph_objects as go
@@ -330,4 +331,95 @@ def plot_3d_portfolio_surface(w1_grid, w2_grid, risk_grid):
         ),
         margin=dict(l=0, r=0, b=0, t=40)
     )
+    return fig
+
+
+def plot_returns_outliers(df,
+                 y_cols,
+                 outlier_col,
+                 title,
+                 outlier_label="outlier"):
+
+    """
+    Plot time series returns with optional outlier highlighting.
+
+    This function generates a line plot for one or more return-related columns
+    and overlays a scatter plot to mark observations flagged as outliers.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        DataFrame containing time series data. Must include the columns
+        specified in `y_cols`, the `outlier_col`, and a "log_return" column
+        for plotting outlier points.
+
+    y_cols : iterable of str
+        Column names to be plotted as line series (e.g., ["log_return"],
+        or ["log_return", "upper", "lower"]).
+
+    outlier_col : str
+        Column name indicating outlier observations. Expected to be a boolean
+        mask where True values are treated as outliers.
+
+    title : str
+        Title of the plot.
+
+    outlier_label : str, optional
+        Label used in the legend for the outlier points. Default is "outlier".
+
+    Returns
+    -------
+    fig : matplotlib.figure.Figure
+        The created matplotlib figure object.
+
+    ax : matplotlib.axes.Axes
+        The axes object containing the plot.
+
+    Notes
+    -----
+    - The function assumes "log_return" exists in `df` for plotting outliers.
+    - The legend is positioned outside the main plot area on the right.
+    - Uses seaborn's `despine()` for cleaner visual presentation.
+    """
+
+    fig, ax = plt.subplots()
+
+    df[list(y_cols)].plot(ax=ax)
+
+
+    mask = df[outlier_col]
+    ax.scatter(
+        df.loc[mask].index,
+        df.loc[mask, "log_return"],
+        color="black",
+        label=outlier_label
+    )
+
+    ax.set_title(title)
+    ax.legend(loc="center left", bbox_to_anchor=(1, 0.5))
+
+    sns.despine()
+    plt.tight_layout()
+
+    return fig, ax
+
+
+def create_q_q_plot(return_data, title):
+    """
+    Generate a Q-Q plot of log returns against a normal distribution.
+
+    Parameters
+    ----------
+    return_data : pandas.DataFrame
+        DataFrame containing a 'log_return' column.
+    title : str
+        Title of the plot.
+
+    Returns
+    -------
+    fig : matplotlib.figure.Figure
+        The generated Q-Q plot figure.
+    """
+    fig = sm.qqplot(return_data['log_return'].dropna(), line='s')
+    plt.title(title)
     return fig

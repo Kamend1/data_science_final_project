@@ -5,14 +5,15 @@ import re
 from pathlib import Path
 
 
-def save_10_year_single_stock_data_to_csv(ticker: str, project_root, per: str = "10y") -> pd.DataFrame:
+def save_10_year_single_stock_data_to_csv(ticker: str, project_root: str, start_date: str, end_date: str, per = '10y') -> pd.DataFrame:
     """
-    Download historical data from yfinance for a ticker and a period. Period defaults to 10y
-    if not provided. Save the information in a data folder in the main project folder. If data
+    Download historical data from yfinance for a ticker and a period defined by a start date and an end date. 
+    Save the information in a data folder in the main project folder. If data
     folder is not available, it is first created
     """
     data = yf.download(ticker,
-                       period=per,
+                       start = start_date,
+                       end = end_date,
                        interval="1d",
                        auto_adjust=True,
                        progress=False)
@@ -194,3 +195,21 @@ def get_sector_industry(ticker_symbol):
     }
 
 
+def get_return_outliers(return_data, n_sigmas):
+    """
+    Calculates return outliers, which are defined by calculating the mean return
+    for a time frame provided in the return DataFrame and the standard deviation
+    for the same period
+    """
+    return_data = return_data.copy()
+    
+    return_data["upper"] = return_data["mean"] + n_sigmas * return_data["std"]
+    return_data["lower"] = return_data["mean"] - n_sigmas * return_data["std"]
+
+    return_data["outlier"] = (
+    (return_data["log_return"] > return_data["upper"]) | 
+    (return_data["log_return"] < return_data["lower"])
+    )
+
+    return_data = return_data.dropna()
+    return return_data
