@@ -13,6 +13,8 @@ The objective is not to “predict the market,” but to rigorously test:
 - Whether **extreme events (outliers)** carry informational value
 - Whether **volatility and distributional features** can be exploited
 - Whether such signals are **consistent across a diversified equity universe**
+- Whether **natural language processing (NLP) and sentiment analysis of corporate disclosures** can provide additional predictive signals
+- Whether these combined signals can ultimately generate **economic value when deployed in a portfolio framework through backtesting**
 
 ## 2. Research Framework
 
@@ -22,7 +24,7 @@ The project is structured around a clear empirical pipeline:
 2. **Statistical Characterization** → Understand distributional properties  
 3. **Structure Identification** → Detect non-random behavior  
 4. **Signal Construction** → Translate structure into signals  
-5. **Hypothesis Testing** → Validate statistical significance  
+5. **Hypothesis Testing** → Validate statistical significance at a confidence level of $\alpha = 0.01$ across the entire project  
 6. **Integration & Evaluation** → Assess combined signal impact  
 
 All conclusions are based on **formal statistical testing**, not visual inspection or backtest-driven bias.
@@ -41,8 +43,6 @@ All conclusions are based on **formal statistical testing**, not visual inspecti
 │ ├── signal_testing_utils/ # Statistical testing utilities
 │ └── nlp_utils/ # (Exploratory / partial NLP pipeline)
 │
-├── data/ # Auto-generated datasets (ignored)
-├── static_data/ # Optional cached artifacts
 ├── .gitignore
 └── README.md
 ```
@@ -83,7 +83,7 @@ Establishes the core empirical result:
 - Outlier-driven signals
 
 **Methods:**
-- Parametric testing (t-tests)
+- Parametric testing
 - Distribution comparisons
 - Conditional expectation analysis
 
@@ -135,37 +135,39 @@ Consistent across all 30 large-cap stocks:
 - **Mean-reverting tendencies (H < 0.5)**
 - **Frequent extreme events (outliers)**
 
-### ❌ Rejected Assumptions
+### Rejected Assumptions
 
 - No strong **linear autocorrelation in returns**
 - No reliable **trend or seasonality**
 - No consistent **directional predictability**
 
----
 
 ## 6. Core Insight
 
 The project converges to a single, critical conclusion:
 
-> **Market direction is largely efficient.  
-> Market structure is not.**
+> **Signals can exist and generate value.  
+> Their effectiveness breaks down at the portfolio level.**
 
 Specifically:
 
-- Returns → largely unpredictable  
-- Volatility → persistent and structured  
-- Extremes → statistically significant and non-random  
+- Returns → limited predictability, but usable in selective contexts  
+- Signals → statistically valid and economically positive in isolation  
+- Portfolio performance → constrained by capital allocation, diversification, and scaling limitations  
+- Optimization → amplifies estimation error and concentrates risk  
 
 ## 7. Implications
 
-This leads to a reframing of signal design:
+This leads to a reframing of signal design and deployment:
 
 | Traditional View | Empirical Reality |
 |----------------|-----------------|
-| Predict direction | Weak signal |
-| Follow trends | Inconsistent |
-| Exploit volatility | Strong signal |
-| Detect extremes | High value |
+| Find predictive signals | Signals exist but are weak and context-dependent |
+| Add more signals | Signal quality matters more than quantity |
+| Optimize portfolio | Optimization introduces instability and concentration risk |
+| Deploy full capital | Signals often do not support full allocation |
+| Beat benchmarks with alpha | Simple strategies remain highly competitive |
+| Scale profitable signals | Signal performance degrades with scale |
 
 ## 8. Installation & Setup
 
@@ -187,26 +189,96 @@ Run notebooks sequentially:
 
 This project is intentionally designed to challenge assumptions.
 
-No indicator is accepted without statistical validation
-All results are cross-validated across 30 assets
-Strict significance level (α = 0.01) is enforced
-No reliance on overfit backtests or cherry-picked results
+- No indicator is accepted without statistical validation  
+- All results are tested across 30 assets  
+- A strict significance level ($\alpha = 0.01$) is consistently enforced  
+- There is no reliance on overfit backtests or cherry-picked results  
 
-The goal is not to prove that markets are predictable, but to identify:
+The goal was not to prove that markets are predictable, but to identify:
 
-where structure exists — and where it does not
+> where structure exists — and where it does not
+
+---
+
+### Personal Reflection
+
+I started this project with a completely open mind. I did not know where the analysis would lead, and I made a conscious decision not to steer it toward a predefined conclusion.
+
+Following your advice, I adhered as closely as possible to the **scientific method**:
+- No look-ahead bias  
+- No retrospective adjustments to fit results  
+- No altering hypotheses after observing outcomes  
+
+I also made a deliberate effort to **separate this work from my prior professional experience**. I tried to avoid introducing personal bias, even when the results challenged my own expectations or intuitions about the markets.
+
+This project was intentionally ambitious — both in scope and in objective. I challenged myself not only technically, but also in terms of discipline and rigor. I can say with confidence that it became one of the most valuable learning experiences in my program.
+
+---
+
+### Challenges Faced
+
+The process was not without setbacks.
+
+The most significant limitation was related to **data availability and legality**, particularly regarding earnings call transcripts. This forced me to pivot to alternative textual sources (8-K and 10-Q filings), which I recognize are less informative for sentiment extraction.
+
+This constraint likely impacted the strength of the sentiment analysis results. However, I chose to proceed within legal and ethical boundaries rather than compromise the integrity of the project. I hope this trade-off is understood in the context of the overall effort.
+
+---
+
+### Closing Note
+
+I am aware that this topic may not align perfectly with every grader’s area of interest. Still, my goal was to approach it with enough depth, rigor, and curiosity to make the process engaging not only for myself, but also for the reader.
+
+I hope that the work reflects:
+- Genuine effort
+- Strong methodological discipline
+- And a willingness to explore beyond surface-level conclusions
+
+Finally, I am genuinely grateful for this opportunity. This course has been a significant learning experience, and this project amplified that value by pushing me to engage with complex, real-world problems in a structured and disciplined way.
 
 ## 11. Final Conclusion
 
 The analysis demonstrates that:
 
-Financial markets exhibit strong statistical structure
-This structure does not exist in price direction
-It exists in:
-volatility
-distributional shape
-extreme deviations
-Final Takeaway
+- Financial markets exhibit **strong and persistent statistical structure**
+- This structure does not exist in **price direction**
+- Instead, it is embedded in:
+  - Volatility
+  - Distributional shape
+  - Extreme deviations
 
-The edge in financial markets is not in predicting movement —
+## Final Takeaway
+
+The edge in financial markets is not in predicting movement —  
 it is in identifying when the market is behaving abnormally.
+
+## Broader Conclusion
+
+Through this project, I was able to identify **statistically significant relationships** and demonstrate that they can be translated into **economically positive outcomes under certain conditions**.
+
+At the same time, the results show clear limitations:
+- Signals do not scale easily
+- Portfolio construction and capital allocation become the dominant constraints
+- Not all statistically valid signals translate into robust investment strategies
+
+This leads to a balanced conclusion:
+
+> There is evidence of exploitable structure in the market,  
+> but extracting consistent and scalable value from it remains a complex problem.
+
+## Personal Reflection
+
+This project revealed a promising avenue for further exploration.
+
+While not all approaches delivered strong results, the process uncovered:
+- Multiple directions for improving signal design
+- Opportunities to refine portfolio construction
+- Clear paths for expanding the dataset and feature space
+
+Rather than closing the question, the findings highlight that:
+
+> There is more to test, more to refine, and meaningful potential to explore further.
+
+Overall, the results reinforce both:
+- The **difficulty of consistently extracting alpha**
+- And the **existence of underlying structure that justifies continued research**
