@@ -7,3 +7,4 @@ venv/
 temp_chunks/*.csv
 static_data/*
 !static_data/.gitkeep
+.idea/
