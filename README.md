@@ -180,10 +180,10 @@ cd data_science_final_project
 
 Run notebooks sequentially:
 
-1_1_stock_returns_data_pipeline.ipynb
-1_2_time_series_signals_hypothesis_testing.ipynb
-1_3_earnings_releases_data_pipeline_and_exploration.ipynb
-1_4_signal_to_portfolio_influence_hypothesis_testing.ipynb
+- 1_1_stock_returns_data_pipeline.ipynb
+- 1_2_time_series_signals_hypothesis_testing.ipynb
+- 1_3_earnings_releases_data_pipeline_and_exploration.ipynb
+- 1_4_signal_to_portfolio_influence_hypothesis_testing.ipynb
 
 ## 10. Note to the Grader
 
