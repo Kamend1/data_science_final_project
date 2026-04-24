@@ -6,7 +6,7 @@ import html
 
 def classify_long_transcript_batched(text, tokenizer, nlp, batch_size=16):
     """
-    This method receives a text, a tokenizer, and an nlp model.
+    This method receives a text, a tokenizer, and a nlp model.
     It splits the text in chunks to accommodate the tokenizer limit.
     Rates each chunk and appends the result to a list.
     """

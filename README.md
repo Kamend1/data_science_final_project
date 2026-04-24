@@ -119,7 +119,7 @@ Separates:
 - Evaluate directional and distributional shifts
 
 **Focus:**
-- Actual backtesting economical impact
+- Actual backtesting economic impact
 - Not overfit backtesting
 
 

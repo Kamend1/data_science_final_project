@@ -82,11 +82,11 @@ def process_filing_row(row):
 
 async def check_compliance_async(session, row, sem, rate_lock, rate_state, index):
     """
-    Asynchronous method scrape the filing web site for presence of Item 2.02 in an 8-K report.
+    Asynchronous method scrape the filing website for presence of Item 2.02 in an 8-K report.
     This confirms that the checked 8-K report is indeed an earnings announcement.
     The method returns a boolean.
     The method allows using a semaphore system and multiple workers to work close to the EDGAR
-    datavase official 10 calls/second rate.
+    database official 10 calls/second rate.
     """
     f_type = str(row['Filing Type']).upper()
     url = row['SEC Link']
