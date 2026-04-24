@@ -191,14 +191,12 @@ This project is intentionally designed to challenge assumptions.
 
 - No indicator is accepted without statistical validation  
 - All results are tested across 30 assets  
-- A strict significance level ($\alpha = 0.01$) is consistently enforced  
+- A strict significance level ($\alpha = 0.01$) is consistently enforced across the project  
 - There is no reliance on overfit backtests or cherry-picked results  
 
 The goal was not to prove that markets are predictable, but to identify:
 
 > where structure exists — and where it does not
-
----
 
 ### Personal Reflection
 
@@ -227,16 +225,16 @@ This constraint likely impacted the strength of the sentiment analysis results. 
 
 ### Closing Note
 
-I am aware that this topic may not align perfectly with every grader’s area of interest. Still, my goal was to approach it with enough depth, rigor, and curiosity to make the process engaging not only for myself, but also for the reader.
+I am aware that this topic may not align perfectly with every grader’s area of interest. Still, my goal was to approach it with enough rigor and curiosity to make the process engaging not only for myself, but also for the reader and this case the project grader.
 
 I hope that the work reflects:
 - Genuine effort
-- Strong methodological discipline
+- Strong methodological discipline meeting the grader's expectations
 - And a willingness to explore beyond surface-level conclusions
 
-Finally, I am genuinely grateful for this opportunity. This course has been a significant learning experience, and this project amplified that value by pushing me to engage with complex, real-world problems in a structured and disciplined way.
+Finally, I am genuinely grateful for this opportunity. This course has been a significant learning experience, and this project amplified that value by pushing me to engage with complex, real-world problems in a structured and disciplined way. This is a personal area of strong interest and the project has a potential to be the foundation of something that could have real practical application in the future. Topics like these and the possibilities to acquire knowledge and the skill set necessary to apply it were the primary motivators for me to engage with SoftUni in 2023, study Python programming in the first place.  
 
-## 11. Final Conclusion
+## 11. Final Project Conclusion
 
 The analysis demonstrates that:
 
@@ -247,12 +245,11 @@ The analysis demonstrates that:
   - Distributional shape
   - Extreme deviations
 
-## Final Takeaway
+### Final Takeaway
 
-The edge in financial markets is not in predicting movement —  
-it is in identifying when the market is behaving abnormally.
+The edge in financial markets is not in predicting movement — it is in identifying when the market is behaving abnormally and exploiting the opportunities in a risk controlled environment.
 
-## Broader Conclusion
+### Broader Conclusion
 
 Through this project, I was able to identify **statistically significant relationships** and demonstrate that they can be translated into **economically positive outcomes under certain conditions**.
 
@@ -266,14 +263,15 @@ This leads to a balanced conclusion:
 > There is evidence of exploitable structure in the market,  
 > but extracting consistent and scalable value from it remains a complex problem.
 
-## Personal Reflection
+### Final Reflection
 
-This project revealed a promising avenue for further exploration.
+This project revealed a promising avenue for further exploration. As a first approach to this topic from a personal standpoint, I understand that I most likely did not reach the necessary level and a lot more work is required to make more definite conclusions and possibly receive better outcomes. 
 
 While not all approaches delivered strong results, the process uncovered:
 - Multiple directions for improving signal design
 - Opportunities to refine portfolio construction
 - Clear paths for expanding the dataset and feature space
+- Perhaps current access to real earnings calls' transcripts via a paid service will include the sentiment factor in the process as well
 
 Rather than closing the question, the findings highlight that:
 
